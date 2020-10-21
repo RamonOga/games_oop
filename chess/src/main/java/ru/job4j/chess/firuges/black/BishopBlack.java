@@ -1,5 +1,9 @@
 package ru.job4j.chess.firuges.black;
 
+import ru.job4j.chess.FigureNotFoundException;
+import ru.job4j.chess.ImpossibleMoveException;
+import ru.job4j.chess.Logic;
+import ru.job4j.chess.OccupiedCellException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
@@ -34,21 +38,14 @@ public class BishopBlack implements Figure {
     }
 
     public static boolean isDiagonal(Cell source, Cell dest) {
-        int deltaX = source.getX() < dest.getX() ? 1 : -1;
-        int deltaY = source.getY() < dest.getY() ? 1 : -1;
         boolean rsl = false;
-
-        while (Cell.findBy(source.getX() + deltaX,
-                source.getY() + deltaY) != null) {
-            source = Cell.findBy(source.getX() + deltaX,
-                    source.getY() + deltaY);
-            if (source.equals(dest)) {
-                rsl = true;
-                break;
+            if (source.getX()+source.getY() == dest.getX() + dest.getY() ||
+               Math.abs(source.getX()-source.getY()) == Math.abs(dest.getX() - dest.getY())) {
+               rsl = true;
             }
-        }
         return rsl;
-    }
+        }
+
 
     @Override
     public Figure copy(Cell dest) {
@@ -57,8 +54,7 @@ public class BishopBlack implements Figure {
 
 
     public static void main(String[] args) {
-        boolean rsl = BishopBlack.isDiagonal(Cell.C1, Cell.C2);
-        System.out.println(rsl);
+
     }
 
 }
